@@ -16,7 +16,6 @@ struct SavedTileComponentView: View {
                     .resizable()
                     .scaledToFit()
                     .padding()
-                    .layoutPriority(1)
                 VStack{
                     Text(viewModel.title)
                         .font(.caption)
