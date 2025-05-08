@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class TileCategoryComponentViewModel: ObservableObject, Identifiable{
+final class CategoryTileComponentViewModel: ObservableObject, Identifiable{
     var id = UUID()
     
     @Published var title: String

@@ -7,28 +7,25 @@
 
 import SwiftUI
 
-struct CategoryTileComponentView: View {
+struct AddSavedTileView: View {
     
-    var viewModel: CategoryTileComponentViewModel
     var onTap: (() -> Void)?
     
     var body: some View {
         RatioContainer(heightRatio: 0.5){
-            Image(systemName: viewModel.image)
+            Image(systemName: "plus.app.fill")
                 .resizable()
                 .scaledToFit()
-                .padding(.top, 16)
+                .padding(.top, 28)
+                .foregroundStyle(.cyan)
             VStack{
-                Text(viewModel.title)
+                Text(LocalizedStringResource(stringLiteral: "Добавить"))
                     .font(.caption)
                     .foregroundColor(.primary)
             }
-            .padding(.top)
+            .padding(.top, 12)
         }
         .frame(width: 120, height: 120)
-        .background(.primarySet)
-        .cornerRadius(20)
-        .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 3)
         .onTapGesture {
             onTap?()
         }
@@ -38,5 +35,5 @@ struct CategoryTileComponentView: View {
 
 //Preview
 #Preview {
-    CategoryTileComponentView(viewModel: CategoryTileComponentViewModel(title: "Мобильная Связь", image: "star.fill"), onTap: {print("Tapped")})
+    AddSavedTileView(onTap: {})
 }

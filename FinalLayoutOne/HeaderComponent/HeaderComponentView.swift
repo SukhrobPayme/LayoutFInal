@@ -16,21 +16,22 @@ struct HeaderComponentView: View {
             Text(viewModel.title)
                 .font(.headline)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            Button(action: {
-                onButtonTap()
-            }) {
-                Text(LocalizedStringResource(extendedGraphemeClusterLiteral: "Все"))
-                    .font(.headline)
-                    .foregroundColor(.cyan)
-                    .frame(alignment: .trailing)
-            }
+            
+            Text(LocalizedStringResource(extendedGraphemeClusterLiteral: "Все"))
+                .font(.headline)
+                .foregroundColor(.cyan)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .onTapGesture {
+                    onButtonTap()
+                }
         }
-        .frame(maxWidth: .infinity)
     }
 }
 
+
+//Preview
 #Preview {
-    HeaderComponentView(viewModel: HeaderComponentModelView(title: "Someth"), onButtonTap: {
+    HeaderComponentView(viewModel: HeaderComponentModelView(title: "Something"), onButtonTap: { print("Tappeds")
     })
 }
 

@@ -7,40 +7,42 @@
 
 import SwiftUI
 
-struct CategoryCollectionComponentView<Content: View>: View {
+struct SavedCollectionComponentView<Content: View>: View {
     var tiles: [SavedTileComponentViewModel]
-    var content: (SavedTileComponentViewModel) -> Content
-    var onAddTap: () -> Void
-
+    var content: (SavedTileComponentViewModel, Int) -> Content
+    var onAddTap: () -> Void = {}
+    
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 16) {
-                ForEach(tiles) { tile in
-                    content(tile)
+                ForEach(Array(tiles.enumerated()), id: \.offset) { index, tile in
+                    content(tile, index)
                 }
-                AddSavedTileView(onTap: onAddTap)    // <-- pass it here
-                    .padding(.leading, 0)
+                AddSavedTileView(onTap: onAddTap)
             }
-            .frame(maxHeight: 140)
         }
     }
 }
 
-// MARK: - Preview
-#Preview {
-    let sampleItems = [
-        SavedTileComponentViewModel(title: "One", subtitle: "722", image: "document", state: .balance),
-        SavedTileComponentViewModel(title: "Two", subtitle: "722", image: "document", state: .debt),
-        SavedTileComponentViewModel(title: "Three", subtitle: "722", image: "document", state: .usual)
-    ]
 
-    // Provide onAddTap to see output in console when running
-    CategoryCollectionComponentView(
-        tiles: sampleItems,
-        content: { tile in
-            SavedTileComponentView(viewModel: tile, onTap: { print("Tapped tile: \(tile.title)") })
-        },
-        onAddTap: { print("Sims") }   // <-- onAddTap closure here
-    )
-    .padding()
+
+struct SavedCollectionComponentView_Previews: PreviewProvider {
+    static var previews: some View {
+        // Simple mock session: raw titles and images
+        let sampleItems = [
+            SavedTileComponentViewModel(title: "One", subtitle: "100", image: "star.fill", state: .balance),
+            SavedTileComponentViewModel(title: "Two", subtitle: "200", image: "heart.fill", state: .usual),
+            SavedTileComponentViewModel(title: "Three", subtitle: "300", image: "bolt.fill", state: .debt)
+        ]
+
+        return SavedCollectionComponentView(
+            tiles: sampleItems,
+            content: { tile, index in
+                SavedTileComponentView(viewModel: tile, onTap: {
+                    print("Tile #\(index)")
+                })
+            },
+            onAddTap: {print("Add")}
+        )
+    }
 }

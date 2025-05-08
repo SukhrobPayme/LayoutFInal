@@ -7,36 +7,39 @@
 
 import SwiftUI
 
-struct GroupCategoryComponentView<Content: View>: View {
-    var tiles: [TileCategoryComponentViewModel]
-    var content: (TileCategoryComponentViewModel) -> Content
-    
+struct CategoryCollectionComponentView<Content: View>: View {
+    var tiles: [CategoryTileComponentViewModel]
+    var content: (CategoryTileComponentViewModel, Int) -> Content
+
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 16) {
-                ForEach(Array(tiles.enumerated()), id: \.offset) { _, tile in
-                    content(tile)
+                ForEach(Array(tiles.enumerated()), id: \.offset) { index, tile in
+                    content(tile, index)
                 }
             }
-            .frame(maxHeight: 140)
         }
     }
 }
 
-
-//Preview
-struct GroupCategoryComponentView_Previews: PreviewProvider {
+struct CategoryCollectionComponentView_Previews: PreviewProvider {
     static var previews: some View {
+        // Simple mock session: raw titles and images
         let sampleItems = [
-            TileCategoryComponentViewModel(title: "One", image: "document"),
-            TileCategoryComponentViewModel(title: "Two", image: "document"),
-            TileCategoryComponentViewModel(title: "Three", image: "document"),
-            TileCategoryComponentViewModel(title: "Three", image: "document"),
-            TileCategoryComponentViewModel(title: "Three", image: "document")
+            CategoryTileComponentViewModel(title: "One", image: "star.fill"),
+            CategoryTileComponentViewModel(title: "Two", image: "star.fill"),
+            CategoryTileComponentViewModel(title: "Three", image: "bolt.fill"),
+            CategoryTileComponentViewModel(title: "Three", image: "bolt.fill"),
+            CategoryTileComponentViewModel(title: "Three", image: "bolt.fill")
         ]
-        
-        GroupCategoryComponentView(tiles: sampleItems) { tile in
-            TileCategoryComponentView(viewModel: tile, onTap: {print("Tapped")})
-        }
+
+        return CategoryCollectionComponentView(
+            tiles: sampleItems,
+            content: { tile, index in
+                CategoryTileComponentView(viewModel: tile, onTap: {
+                    print("Tile #\(index)")
+                })
+            }
+        )
     }
 }
