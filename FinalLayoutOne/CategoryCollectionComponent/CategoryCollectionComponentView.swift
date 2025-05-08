@@ -13,15 +13,18 @@ struct GroupCategoryComponentView<Content: View>: View {
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 16) {
+            LazyHStack(spacing: 16) {
                 ForEach(Array(tiles.enumerated()), id: \.offset) { _, tile in
                     content(tile)
                 }
             }
+            .frame(maxHeight: 140)
         }
     }
 }
 
+
+//Preview
 struct GroupCategoryComponentView_Previews: PreviewProvider {
     static var previews: some View {
         let sampleItems = [
@@ -33,7 +36,7 @@ struct GroupCategoryComponentView_Previews: PreviewProvider {
         ]
         
         GroupCategoryComponentView(tiles: sampleItems) { tile in
-            TileCategoryComponentView(viewModel: tile)
+            TileCategoryComponentView(viewModel: tile, onTap: {print("Tapped")})
         }
     }
 }

@@ -10,27 +10,33 @@ import SwiftUI
 struct TileCategoryComponentView: View {
     
     var viewModel: TileCategoryComponentViewModel
+    var onTap: (() -> Void)?
     
     var body: some View {
         RatioContainer(heightRatio: 0.5){
             Image(systemName: viewModel.image)
                 .resizable()
                 .scaledToFit()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(.red)
+                .padding(.top, 16)
             VStack{
                 Text(viewModel.title)
                     .font(.caption)
                     .foregroundColor(.primary)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(.blue)
+            .padding(.top)
         }
         .frame(width: 120, height: 120)
-        .background(.yellow)
+        .background(.primarySet)
+        .cornerRadius(20)
+        .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 3)
+        .onTapGesture {
+            onTap?()
+        }
     }
 }
 
+
+//Preview
 #Preview {
-    TileCategoryComponentView(viewModel: TileCategoryComponentViewModel(title: "Sam", image: "star.fill"))
+    TileCategoryComponentView(viewModel: TileCategoryComponentViewModel(title: "Мобильная Связь", image: "star.fill"), onTap: {print("Tapped")})
 }
