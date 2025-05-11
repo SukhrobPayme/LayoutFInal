@@ -26,23 +26,23 @@ struct SavedCollectionComponentView<Content: View>: View {
 
 
 
-struct SavedCollectionComponentView_Previews: PreviewProvider {
-    static var previews: some View {
-        // Simple mock session: raw titles and images
-        let sampleItems = [
-            SavedTileComponentViewModel(title: "One", subtitle: "100", image: "star.fill", state: .balance),
-            SavedTileComponentViewModel(title: "Two", subtitle: "200", image: "heart.fill", state: .usual),
-            SavedTileComponentViewModel(title: "Three", subtitle: "300", image: "bolt.fill", state: .debt)
-        ]
-
-        return SavedCollectionComponentView(
-            tiles: sampleItems,
-            content: { tile, index in
-                SavedTileComponentView(viewModel: tile, onTap: {
-                    print("Tile #\(index)")
-                })
-            },
-            onAddTap: {print("Add")}
-        )
-    }
-}
+//struct SavedCollectionComponentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        // Simple mock session: raw titles and images
+//        let sampleItems = [
+//            SavedTileComponentViewModel(title: "One", subtitle: "100", image: "star.fill", state: .balance),
+//            SavedTileComponentViewModel(title: "Two", subtitle: "200", image: "heart.fill", state: .usual),
+//            SavedTileComponentViewModel(title: "Three", subtitle: "300", image: "bolt.fill", state: .debt)
+//        ]
+//
+//        return SavedCollectionComponentView(
+//            tiles: sampleItems,
+//            content: { tile, index in
+//                SavedTileComponentView(viewModel: tile, onTap: {
+//                    print("Tile #\(index)")
+//                })
+//            },
+//            onAddTap: {print("Add")}
+//        )
+//    }
+//}

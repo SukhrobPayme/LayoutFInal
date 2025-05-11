@@ -22,7 +22,6 @@ struct RatioContainer<Content: View>: View {
         GeometryReader { geo in
             VStack {
                 content.frame(width: geo.size.width, height: geo.size.height*heightRatio, alignment: alignment)
-                Spacer()
             }
         }
     }

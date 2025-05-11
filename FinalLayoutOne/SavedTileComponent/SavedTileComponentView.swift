@@ -12,34 +12,46 @@ struct SavedTileComponentView: View {
     var onTap: (() -> Void)?
     
     var body: some View {
-        RatioContainer {
-            Image(systemName: viewModel.image)
-                .resizable()
-                .scaledToFit()
-                .padding()
-            
-            VStack(spacing: 4) {
-                Text(viewModel.title)
-                    .font(.caption)
-                    .foregroundColor(.primary)
+        GeometryReader { geo in
+            VStack(spacing: 0) {
+                Image(systemName: viewModel.image)
+                    .resizable()
+                    .scaledToFit()
+                    .padding(12)
+                    .frame(
+                        maxWidth: .infinity,
+                        maxHeight: geo.size.height * 0.5,
+                        alignment: .center
+                    )
+                    .background(Color.white)
                 
-                if viewModel.state.showsSubtitle {
-                    Text(viewModel.subtitle)
+                VStack(spacing: 4) {
+                    Text(viewModel.title)
                         .font(.caption)
-                        .foregroundColor(viewModel.state.subtitleColor)
+                    if viewModel.state.showsSubtitle {
+                        Text(viewModel.subtitle)
+                            .font(.caption)
+                            .foregroundColor(viewModel.state.subtitleColor)
+                    }
                 }
+                .frame(
+                    maxWidth: .infinity,
+                    maxHeight: geo.size.height * 0.5,
+                    alignment: .center
+                )
+                .padding(.horizontal, 8)
+                .background(Color(.darkGray))
             }
-            .padding(.bottom, 8)
+            .clipped()
         }
         .frame(width: 120, height: 120)
-        .background(.primarySet)
+        .background(Color.primary.opacity(0.1))    // your .primarySet
         .cornerRadius(CornerRadiusToken.borderRadius5)
         .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 3)
-        .onTapGesture {
-            onTap?()
-        }
+        .onTapGesture { onTap?() }
     }
 }
+
 
 
 //Preview

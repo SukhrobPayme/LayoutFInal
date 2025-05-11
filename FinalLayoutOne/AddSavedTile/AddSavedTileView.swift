@@ -8,32 +8,39 @@
 import SwiftUI
 
 struct AddSavedTileView: View {
-    
     var onTap: (() -> Void)?
-    
+
     var body: some View {
-        RatioContainer(heightRatio: 0.5){
-            Image(systemName: "plus.app.fill")
-                .resizable()
-                .scaledToFit()
-                .padding(.top, 28)
-                .foregroundStyle(.cyan)
-            VStack{
-                Text(LocalizedStringResource(stringLiteral: "Добавить"))
+        GeometryReader { geo in
+            VStack(spacing: 0) {
+                Image(systemName: "plus.app.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .padding(.top, 28)
+                    .foregroundStyle(.cyan)
+                    .frame(
+                        maxWidth: .infinity,
+                        maxHeight: geo.size.height * 0.5,
+                        alignment: .center
+                    )
+                Text("Добавить")
                     .font(.caption)
                     .foregroundColor(.primary)
+                    .frame(
+                        maxWidth: .infinity,
+                        maxHeight: geo.size.height * 0.5,
+                        alignment: .center
+                    )
             }
-            .padding(.top, 12)
+            .clipped()
         }
         .frame(width: 120, height: 120)
-        .onTapGesture {
-            onTap?()
-        }
+        .onTapGesture { onTap?() }
     }
 }
 
 
 //Preview
 #Preview {
-    AddSavedTileView(onTap: {})
+    AddSavedTileView(onTap: {print("Added")})
 }
